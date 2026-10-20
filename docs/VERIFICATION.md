@@ -55,3 +55,11 @@ Lint, strict TypeScript, production build, 14 domain tests and 16 browser tests 
 ## Colour-only comparison review
 
 The actual app now supports opt-in `look` query parameters for midnight violet, warm aubergine and ocean blue. Default appearance remains unchanged. Lint, TypeScript, build, 14 domain tests and all 19 browser tests pass. The three added browser checks cover all seven destination views, unchanged main-content bounding boxes, axe contrast/accessibility, mobile width, and returning to the original palette. There are 24 actual application captures in `docs/style-review/`; see COLOUR_REVIEW.md. A low-contrast inline helper label in the dark palette was repaired before the final passing run. No live deployment was performed from this environment.
+
+## Approved Electric candy styling
+
+Electric candy is now rendered as the default palette from the root layout on every destination. Purple/pink/coral gradients change hero artwork, highlighted headings, primary buttons and banners; navigation, content, spacing and demo workflows are preserved. Optional comparison palettes remain behind the `look` query parameter; closing comparison restores Electric candy.
+
+Validation: ESLint, strict TypeScript, production build, 14 domain tests and 20 browser tests, including the approved palette across all seven destinations, accessibility, mobile width and all existing user journeys. Remote artist photos use bundled fallbacks in deterministic tests.
+
+The connected Vercel account lists the intended team but does not expose `sonic-exchange-platform` or its previous preview deployment (404); a new deployment cannot be confirmed through that connection. No replacement project or production deployment was created.

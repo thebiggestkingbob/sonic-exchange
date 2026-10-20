@@ -9,7 +9,7 @@ const paths = [
   "/distribution",
   "/facts-show",
 ];
-for (const look of ["midnight", "studio", "ocean"]) {
+for (const look of ["midnight", "studio", "ocean", "electric"]) {
   test(`real screens preserve layout and accessible colours — ${look}`, async ({
     page,
   }) => {
@@ -80,11 +80,14 @@ for (const look of ["midnight", "studio", "ocean"]) {
       path: `docs/style-review/${look}-mobile-index.png`,
       fullPage: true,
     });
-    await page.getByRole("button", { name: "Current", exact: true }).click();
+    await page
+      .getByRole("button", { name: "Original lavender", exact: true })
+      .click();
     await expect(page.locator("html")).toHaveAttribute("data-look", "original");
     await page.getByRole("button", { name: "Close colour review" }).click();
     await expect(
       page.getByRole("complementary", { name: "Visual style comparison" }),
     ).toHaveCount(0);
+    await expect(page.locator("html")).toHaveAttribute("data-look", "electric");
   });
 }

@@ -814,3 +814,94 @@ html[data-look="ocean"] {
   --paint-b293ca: #89b4e6;
   --paint-d7b8ff: #cfdfe8;
 }
+
+/* Vivid gradient directions: opt-in colour treatment, with no geometry changes. */
+html[data-look="electric"] {
+  --review-gradient: linear-gradient(
+    120deg,
+    #6622e8 0%,
+    #bd1aba 52%,
+    #e94662 100%
+  );
+  --review-wash: linear-gradient(115deg, #eee0ff 0%, #ffe0f1 52%, #ffe7dc 100%);
+  --review-accent: #7420ba;
+  --paint-9670c5: #8628c9;
+  --paint-c5a4ef: #e03aaa;
+  --paint-b393d9: #ac35e2;
+}
+html[data-look="sunset"] {
+  --review-gradient: linear-gradient(
+    120deg,
+    #a61963 0%,
+    #d83a37 52%,
+    #d35b0b 100%
+  );
+  --review-wash: linear-gradient(115deg, #ffe1ed 0%, #ffe3cf 52%, #fff0be 100%);
+  --review-accent: #a61963;
+  --paint-9670c5: #b72265;
+  --paint-c5a4ef: #ef734d;
+  --paint-b393d9: #dc4b68;
+}
+html[data-look="tropical"] {
+  --review-gradient: linear-gradient(
+    120deg,
+    #006a76 0%,
+    #1963c5 50%,
+    #7831cc 100%
+  );
+  --review-wash: linear-gradient(115deg, #ccfae8 0%, #d4f2ff 50%, #ecdfff 100%);
+  --review-accent: #006a76;
+  --paint-9670c5: #087a8a;
+  --paint-c5a4ef: #26bfc1;
+  --paint-b393d9: #229caf;
+}
+html:is([data-look="electric"], [data-look="sunset"], [data-look="tropical"])
+  body {
+  background: linear-gradient(180deg, #fff 0%, #fdfaff 55%, #fff 100%);
+}
+html:is([data-look="electric"], [data-look="sunset"], [data-look="tropical"])
+  :is(.index-hero, .sonic-hero, .value-strip, .discovery-banner) {
+  background: var(--review-wash);
+}
+html:is([data-look="electric"], [data-look="sunset"], [data-look="tropical"])
+  .hero-art {
+  background: var(--review-gradient);
+}
+html:is([data-look="electric"], [data-look="sunset"], [data-look="tropical"])
+  .hero-glow {
+  background: linear-gradient(90deg, #ffffff25, transparent 60%);
+}
+html:is([data-look="electric"], [data-look="sunset"], [data-look="tropical"])
+  .hero-art
+  .vertical-caption {
+  color: white;
+}
+html:is([data-look="electric"], [data-look="sunset"], [data-look="tropical"])
+  .hero-copy
+  h1
+  .lavender {
+  background: var(--review-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+html:is([data-look="electric"], [data-look="sunset"], [data-look="tropical"])
+  :is(.btn.primary, .btn.purple) {
+  background: var(--review-gradient);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 6px 18px #7b279a22;
+}
+html:is([data-look="electric"], [data-look="sunset"], [data-look="tropical"])
+  :is(.text-link, .lavender) {
+  color: var(--review-accent);
+}
+.look-swatch.electric {
+  background: linear-gradient(120deg, #6622e8, #e94662);
+}
+.look-swatch.sunset {
+  background: linear-gradient(120deg, #a61963, #ed9a20);
+}
+.look-swatch.tropical {
+  background: linear-gradient(120deg, #10bfa1, #7831cc);
+}

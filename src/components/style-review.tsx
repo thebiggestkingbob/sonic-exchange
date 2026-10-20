@@ -3,10 +3,13 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 const looks = [
-  ["original", "Current"],
+  ["original", "Original lavender"],
   ["midnight", "Midnight violet"],
   ["studio", "Warm aubergine"],
   ["ocean", "Ocean blue"],
+  ["electric", "Electric candy"],
+  ["sunset", "Sunset groove"],
+  ["tropical", "Tropical pulse"],
 ] as const;
 type Look = (typeof looks)[number][0];
 function isLook(value: string | null): value is Look {
@@ -17,7 +20,7 @@ function isLook(value: string | null): value is Look {
 export function StyleReview() {
   const params = useSearchParams();
   const requested = params.get("look");
-  const [active, setActive] = useState<Look>("original");
+  const [active, setActive] = useState<Look>("electric");
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     if (!isLook(requested)) return;
@@ -52,8 +55,8 @@ export function StyleReview() {
       <button
         aria-label="Close colour review"
         onClick={() => {
-          document.documentElement.dataset.look = "original";
-          setActive("original");
+          document.documentElement.dataset.look = "electric";
+          setActive("electric");
           setVisible(false);
           const url = new URL(window.location.href);
           url.searchParams.delete("look");
