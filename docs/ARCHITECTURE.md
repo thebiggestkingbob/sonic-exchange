@@ -29,7 +29,7 @@ Role switching is explicitly a demo control, **not authentication**. State belon
 
 ## Entities and contracts
 
-Seed artists (fictional), ranked demo observations, history entries, saved alerts, releases with metadata and rights, deals, bookings, demo wallet and append-only transaction ledger, episodes, votes, questions and preferences. All money uses integer cents. Commands refuse unauthorized roles, invalid amounts, negative balances, invalid release rights and duplicate/invalid transitions. Funding debits the demo balance atomically; cancellation refunds exactly once. Local storage is versioned and validated; unavailable storage falls back to session memory with a visible notice.
+Real South African artist/song references with simulated ranked observations, history entries, saved alerts, releases with metadata and rights, deals, bookings, demo wallet and append-only transaction ledger, episodes, votes, questions and preferences. All money uses integer cents. Commands refuse unauthorized roles, invalid amounts, negative balances, invalid release rights and duplicate/invalid transitions. Funding debits the demo balance atomically; cancellation refunds exactly once. Local storage is versioned and validated; unavailable storage falls back to session memory with a visible notice.
 
 ## Visual system
 

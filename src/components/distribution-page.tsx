@@ -29,7 +29,7 @@ import {
 type Draft = Omit<Release, "id" | "status" | "progress">;
 const emptyDraft: Draft = {
   title: "",
-  artist: "Amara Sol",
+  artist: "Kabza De Small",
   genre: "",
   date: "",
   isrc: "",

@@ -3521,3 +3521,45 @@ small {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
 }
+
+/* South African catalogue and song-level demo signals. */
+.song-insights {
+  margin: 24px 0;
+}
+.song-insights .panel-heading {
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.song-insight {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border, #e9e5ef);
+}
+.song-insight small {
+  display: block;
+  margin-top: 5px;
+  color: #696477;
+  font-size: 12px;
+}
+.song-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  margin: 14px 0;
+  font-size: 12px;
+  color: #696477;
+}
+.song-metrics strong {
+  color: #221832;
+}
+.profile-sources {
+  margin-top: 18px;
+  font-size: 12px;
+  color: #696477;
+}
+.profile-sources summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.profile-sources a {
+  text-decoration: underline;
+}

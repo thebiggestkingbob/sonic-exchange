@@ -1,26 +1,21 @@
-# Prepared preview deployment
+# Preview deployment
 
-## Status
+## Current state
 
-The application is built, tested and pushed. Preview publication was attempted through the connected Vercel account and blocked by the provider:
+The user created `sonic-exchange-platform` under `kingbob-3860` from the authenticated GitHub Codespaces terminal. The first project-creation command unexpectedly produced a Production deployment despite `--environment preview`; no production approval had been given. A subsequent command against the existing project produced a confirmed Preview deployment. Do not promote or replace production without explicit approval.
 
-> 403 forbidden: You don't have permission to create a project.
+Confirmed preview of the earlier build:
+https://sonic-exchange-platform-o2ypnn490-kingbob-3860.vercel.app
 
-No deployment or preview URL was returned. No production deployment was attempted. The local Vercel CLI is not installed; the mapped CLI fallback was unavailable. No unrelated project or hosting account was used.
+This South African catalogue refresh is a new source change and is not reflected in that immutable preview URL. It needs a new preview deployment. The connected Vercel tool has previously returned provider 403 errors; authentication inside the user's Codespace does not authenticate this separate execution environment.
 
-## Verified target
+## Refresh from the user's authenticated Codespace
 
-- Team: `kingbob-3860` (`team_v8zAj6GZvTNVlH2l3yObf0dc`)
-- New project name: `sonic-exchange-platform`
-- Repository: `thebiggestkingbob/sonic-exchange`
-- Branch: `feature/sonic-platform`
-- Tested application commit: `94f4fda3810b4ebce169da4ae6550e9dbc173097`
-- Framework: Next.js, Node 24, `npm ci`, `npm run build`
-- Environment: **preview only**; no production approval exists.
-- Secrets required for this demo: none.
+Working directory: `/workspaces/sonic-exchange`, branch: `feature/sonic-platform`.
 
-## Resume publication
+```sh
+git pull --ff-only
+npx --yes vercel@64.7.0 deploy --scope kingbob-3860 --project sonic-exchange-platform --environment preview --yes
+```
 
-An authorized Vercel project and deployment access are needed. After project access is provided, use the new project ID explicitly and create a deployment from the tested commit on this feature branch. Omit the API's production target (Vercel's default is preview), or use the CLI's explicit `--target preview`. Inspect the returned target, commit and build logs, wait for READY and report the literal preview URL. Do not promote it to production.
-
-The source, lockfile and `.vercelignore` are ready. All app state and provider integrations remain in demo mode. See `VERIFICATION.md` and `INTEGRATIONS.md` for the evidence and service boundaries. Subsequent documentation-only commits do not change the tested application.
+Confirm that output explicitly says Preview and Ready before reporting the new URL. This is an existing project: do not use a project-creation flag. No secrets are needed for the demo. Vercel Authentication protects the preview; sign in with the owning account to review it.

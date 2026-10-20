@@ -1,4 +1,5 @@
 "use client";
+import { ArtistImage } from "./artist-image";
 import { tabKeyNavigation } from "./ui";
 import { useState } from "react";
 import { ArrowRight, Plus, ShieldCheck, SlidersHorizontal } from "lucide-react";
@@ -48,7 +49,7 @@ export function OfferForm({
             })
           ) {
             notify(
-              "Demo offer created. Switch to Artist to accept Amara Sol’s offer.",
+              "Demo offer created. Switch to Artist to accept Kabza De Small’s offer.",
             );
             onClose();
           }
@@ -90,10 +91,11 @@ export function OfferForm({
             placeholder="3500.00"
           />
         </label>
-        {artist.id !== "amara" && (
+        {artist.id !== "kabza" && (
           <p className="safety-caption">
-            Only Amara Sol has an active artist workspace in this prototype. You
-            can create this offer, but this artist cannot accept it.
+            Only Kabza De Small has an active artist workspace in this
+            prototype. You can create this offer, but this artist cannot accept
+            it.
           </p>
         )}
         <div className="button-row">
@@ -232,10 +234,7 @@ export default function BrandsPage({
                       onClick={() => setSelected(a)}
                       aria-label={`View ${a.name} profile`}
                     >
-                      <img
-                        src={a.image}
-                        alt="Editorial portrait for fictional artist"
-                      />
+                      <ArtistImage artist={a} />
                       <Badge tone="purple">{a.genre}</Badge>
                     </button>
                     <div className="card-body">
@@ -270,7 +269,7 @@ export default function BrandsPage({
                 }
                 description={
                   verified
-                    ? "All profiles currently use fictional demo data. Turn off Verified only to explore."
+                    ? "All profiles currently use simulated verification data. Turn off Verified only to explore."
                     : "Try a different name, audience or genre."
                 }
               >
@@ -307,9 +306,10 @@ export default function BrandsPage({
               }
             />
             <div className="agreements-explainer" style={{ marginBottom: 20 }}>
-              Create an offer → switch to Artist and accept Amara Sol’s offer →
-              return to Brand to fund demo escrow → complete the simulated
-              settlement. Cancellation returns held demo funds exactly once.
+              Create an offer → switch to Artist and accept Kabza De Small’s
+              offer → return to Brand to fund demo escrow → complete the
+              simulated settlement. Cancellation returns held demo funds exactly
+              once.
             </div>
             <Agreements kind="license" />
           </>
@@ -320,9 +320,9 @@ export default function BrandsPage({
               <ShieldCheck size={30} style={{ color: "#a17bbb" }} />
               <h2 style={{ marginTop: 20 }}>Trust starts with the source.</h2>
               <p className="muted">
-                Audience estimates, index scores and identity claims in this
-                preview are fictional. They have not been verified by a third
-                party.
+                Artist names and song references are real. Audience estimates,
+                index scores and commercial opportunities are simulated. Artist
+                identity, representation and rights have not been verified.
               </p>
               <div className="integration-list">
                 {[

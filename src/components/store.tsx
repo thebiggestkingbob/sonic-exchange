@@ -14,7 +14,7 @@ import {
   type Command,
   type State,
 } from "@/lib/domain";
-const KEY = "sonic-exchange-demo-v1";
+const KEY = "sonic-exchange-sa-demo-v1";
 type Context = {
   state: State;
   ready: boolean;

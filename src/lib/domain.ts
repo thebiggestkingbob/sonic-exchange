@@ -63,7 +63,7 @@ export function initialState(): State {
     deals: [
       {
         id: "seed-license",
-        artistId: "amara",
+        artistId: "kabza",
         title: "Independent voices · short film",
         amount: 350000,
         status: "offered",
@@ -85,7 +85,7 @@ export function initialState(): State {
     venueWallet: 2000000,
     votes: [],
     questions: [],
-    preferences: { name: "Amara Sol", email: "", notify: false },
+    preferences: { name: "Kabza De Small", email: "", notify: false },
     payouts: [],
   };
 }
@@ -216,9 +216,9 @@ export function execute(
       const wallet = d.kind === "license" ? "brandWallet" : "venueWallet";
       if (c.status === "accepted") {
         requireRole(s, "artist");
-        if (d.artistId !== "amara" || d.status !== "offered")
+        if (d.artistId !== "kabza" || d.status !== "offered")
           throw new Error(
-            "Only Amara Sol’s pending offers can be accepted in this artist workspace.",
+            "Only Kabza De Small’s pending offers can be accepted in this artist workspace.",
           );
       } else if (c.status === "funded") {
         requireRole(s, owner);
@@ -230,12 +230,12 @@ export function execute(
         requireRole(s, owner);
         if (d.status !== "funded")
           throw new Error("Fund the agreement before completing it.");
-        if (d.artistId === "amara")
+        if (d.artistId === "kabza")
           entry(`Simulated ${d.kind} settlement · ${d.title}`, d.amount);
       } else if (c.status === "cancelled") {
         if (s.role !== owner && s.role !== "artist")
           throw new Error("This role cannot cancel agreements.");
-        if (s.role === "artist" && d.artistId !== "amara")
+        if (s.role === "artist" && d.artistId !== "kabza")
           throw new Error("This agreement belongs to another artist.");
         if (!["offered", "accepted", "funded"].includes(d.status))
           throw new Error("This agreement is already closed.");
@@ -439,7 +439,7 @@ export function rankArtists(query: string, genre: string, sort: string) {
     .filter(
       (a) =>
         (genre === "All genres" || a.genre === genre) &&
-        `${a.name} ${a.genre} ${a.city}`
+        `${a.name} ${a.genre} ${a.city} ${a.songs.map((song) => song.title).join(" ")}`
           .toLowerCase()
           .includes(query.toLowerCase()),
     )

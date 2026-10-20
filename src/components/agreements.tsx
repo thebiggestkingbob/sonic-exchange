@@ -13,7 +13,7 @@ export function Agreements({
   const { state, send, notify } = useDemo();
   const deals = state.deals.filter(
     (d) =>
-      (!kind || d.kind === kind) && (!artistOnly || d.artistId === "amara"),
+      (!kind || d.kind === kind) && (!artistOnly || d.artistId === "kabza"),
   );
   function transition(d: Deal, status: Deal["status"]) {
     if (send({ type: "transition", id: d.id, status }))
@@ -33,7 +33,7 @@ export function Agreements({
         const a = artists.find((a) => a.id === d.artistId)!;
         const canOwn =
           state.role === (d.kind === "license" ? "brand" : "venue");
-        const canArtist = state.role === "artist" && d.artistId === "amara";
+        const canArtist = state.role === "artist" && d.artistId === "kabza";
         return (
           <article className="agreement" key={d.id}>
             <div className="agreement-top">
@@ -119,8 +119,8 @@ export function Agreements({
             </div>
             {canOwn && d.status === "offered" && (
               <p className="safety-caption" style={{ margin: "14px 0 0" }}>
-                Switch to the Artist demo role to accept Amara Sol’s offers.
-                Other fictional artists have no active workspace in this
+                Switch to the Artist demo role to accept Kabza De Small’s
+                offers. Other artist references have no active workspace in this
                 prototype.
               </p>
             )}

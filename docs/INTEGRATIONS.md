@@ -28,4 +28,4 @@ Only media filenames are persisted. Selected audio and artwork are checked local
 
 ## Media provenance
 
-Music portraits and studio/concert imagery were generated for this prototype; depicted people do not identify the fictional fixture artists. The headphone portrait follows the visual direction of the user-supplied references. The original synthetic audio sample is created for the preview and contains no actual interview or third-party recording.
+Generic studio/concert and headphone imagery was generated for this prototype. Artist-specific imagery now uses local editorial graphics and a credited remote Tyla photograph; see SOUTH_AFRICAN_CONTENT.md. Generic generated people do not identify real artists. The headphone portrait follows the visual direction of the user-supplied references. The original synthetic audio sample is created for the preview and contains no actual interview or third-party recording.

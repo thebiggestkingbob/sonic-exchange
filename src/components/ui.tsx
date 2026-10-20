@@ -108,7 +108,7 @@ export function Waveform({ className = "" }: { className?: string }) {
 export function SearchBox({
   value,
   onChange,
-  placeholder = "Search artists, genres or cities…",
+  placeholder = "Search artists, songs, genres or cities…",
   label = "Search artists",
 }: {
   value: string;
@@ -121,6 +121,7 @@ export function SearchBox({
       <Search size={17} aria-hidden="true" />
       <span className="sr-only">{label}</span>
       <input
+        aria-label={label}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
@@ -214,7 +215,7 @@ export function DemoNote({ children }: { children?: ReactNode }) {
       <span className="demo-dot" />
       <p>
         {children ??
-          "Demo workspace. All artists, rankings and financial figures are fictional. No live integrations or real money movement."}
+          "South African artist references with simulated insights and transactions. No artist affiliation, live social feeds or real money movement."}
       </p>
     </div>
   );

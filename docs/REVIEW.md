@@ -8,7 +8,7 @@ The two supplied screenshots guide visual language: white editorial layouts, bla
 
 - `src/app`: seven public destinations (INDEX is `/` with a `/index` rewrite), common layout, loading/error/404 states and the read-only integration readiness API.
 - `src/components`: design primitives, keyboard navigation, dialogs, local state provider, page-specific journeys and shared agreements.
-- `src/lib`: fictional fixtures, domain commands/state transitions, release validation, role checks and external-provider interfaces.
+- `src/lib`: South African catalogue references with simulated metric fixtures, domain commands/state transitions, release validation, role checks and external-provider interfaces.
 - `public`: generated music imagery and original synthetic sample audio.
 - `tests`: domain regressions and production-server browser journeys, accessibility checks and viewport captures.
 - Configuration: strict TypeScript, ESLint, reproducible npm lockfile, Next headers and Playwright.

@@ -1,4 +1,5 @@
 "use client";
+import { ArtistImage } from "./artist-image";
 import { tabKeyNavigation } from "./ui";
 import { useState } from "react";
 import Link from "next/link";
@@ -41,11 +42,8 @@ export function ArtistProfile({
   return (
     <Modal title="Artist profile" onClose={onClose}>
       <div className="profile-cover">
-        <img
-          src={artist.image}
-          alt="Editorial music portrait used for this fictional artist"
-        />
-        <Badge tone="purple">Fictional artist · demo profile</Badge>
+        <ArtistImage artist={artist} />
+        <Badge tone="purple">South African artist · demo insights</Badge>
       </div>
       <p className="eyebrow">
         {artist.genre} · {artist.city}
@@ -70,9 +68,85 @@ export function ArtistProfile({
         <Disc3 size={28} />
         <div>
           <strong>{artist.track}</strong>
-          <small>Featured demo track · audio not licensed</small>
+          <small>Real catalogue selection · audio not hosted</small>
         </div>
       </div>
+      <section className="song-insights" aria-label="Song and fan activity">
+        <div className="panel-heading">
+          <h3>Songs moving the conversation.</h3>
+          <Badge tone="purple">Simulated · 7 days</Badge>
+        </div>
+        <p className="muted">
+          Real songs, illustrative fan signals. Likes, shares and short-video
+          uses below are invented demo figures, not current TikTok, Instagram or
+          streaming data.
+        </p>
+        {artist.songs.map((song) => (
+          <article className="song-insight" key={song.title}>
+            <div>
+              <strong>{song.title}</strong>
+              <small>{song.credits}</small>
+            </div>
+            <div className="song-metrics">
+              <span>
+                <strong>{compact(song.likes)}</strong> demo likes
+              </span>
+              <span>
+                <strong>{compact(song.shares)}</strong> demo shares
+              </span>
+              <span>
+                <strong>{compact(song.creations)}</strong> demo video uses
+              </span>
+            </div>
+            <a
+              className="text-link"
+              href={`https://www.youtube.com/results?search_query=${encodeURIComponent(artist.name + " " + song.title + " official")}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Find music on YouTube <ArrowUpRight size={14} />
+            </a>
+          </article>
+        ))}
+        <details className="profile-sources">
+          <summary>Artist sources & image credits</summary>
+          <p>
+            <a href={artist.source} target="_blank" rel="noreferrer">
+              Artist background reference ↗
+            </a>
+          </p>
+          <p>
+            {artist.imageCredit}
+            {artist.imageSource && (
+              <>
+                {" "}
+                ·{" "}
+                <a href={artist.imageSource} target="_blank" rel="noreferrer">
+                  Photo reference
+                </a>{" "}
+                ·{" "}
+                {artist.id === "tyla" && (
+                  <>
+                    {" "}
+                    ·{" "}
+                    <a
+                      href="https://creativecommons.org/licenses/by/3.0/"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      License
+                    </a>
+                  </>
+                )}
+              </>
+            )}
+          </p>
+          <p>
+            Editorial demo only. No artist endorsement, partnership, booking
+            availability or rights ownership is implied.
+          </p>
+        </details>
+      </section>
       <div className="button-row">
         <button
           className="btn primary"
@@ -148,11 +222,11 @@ export default function IndexPage({
           </div>
           <div className="hero-footnote">
             <span className="mini-avatars">
-              <img src="/images/artist-1.jpg" alt="" />
-              <img src="/images/artist-2.jpg" alt="" />
-              <img src="/images/artist-3.jpg" alt="" />
+              <ArtistImage artist={artists[0]} decorative />
+              <ArtistImage artist={artists[1]} decorative />
+              <ArtistImage artist={artists[2]} decorative />
             </span>
-            <span>Independent voices. Shared possibilities.</span>
+            <span>South African sounds. Shared possibilities.</span>
           </div>
         </div>
         <div className="hero-art">
@@ -234,8 +308,10 @@ export default function IndexPage({
           }
         />
         <DemoNote>
-          Illustrative {period.toLowerCase()} snapshot · Fictional artists and
-          seeded data. Scores and charts are not live or independently verified.
+          South African artists · real song references · simulated{" "}
+          {period.toLowerCase()} insights. Rankings, audiences and social
+          activity are illustrative, not live measurements. No artist
+          affiliation is implied.
         </DemoNote>
         <div className="index-grid">
           <section className="ranking-panel">
@@ -326,7 +402,7 @@ export default function IndexPage({
                               className="artist-cell"
                               onClick={() => setSelected(a)}
                             >
-                              <img src={a.image} alt="" />
+                              <ArtistImage artist={a} decorative />
                               <span>
                                 <strong>{a.name}</strong>
                                 <small>{a.city}</small>
@@ -452,7 +528,7 @@ export default function IndexPage({
                 {artists.slice(0, 5).map((a, i) => (
                   <button key={a.id} onClick={() => setSelected(a)}>
                     <span className="rank-number">0{i + 1}</span>
-                    <img src={a.image} alt="" />
+                    <ArtistImage artist={a} decorative />
                     <span>
                       <strong>{a.track}</strong>
                       <small>
@@ -473,15 +549,14 @@ export default function IndexPage({
                 </span>
                 <Badge tone="purple">Demo</Badge>
               </div>
-              <img
-                src="/images/artist-4.jpg"
-                alt="Editorial portrait for fictional artist Nalu"
-              />
+              <ArtistImage artist={artists[3]} />
               <div className="gainer-content">
                 <div>
                   <span className="eyebrow">THIS WEEK’S TOP MOVER</span>
-                  <h3>Nalu</h3>
-                  <p>Afro House · Durban</p>
+                  <h3>A-Reece</h3>
+                  <p>
+                    {artists[3].genre} · {artists[3].city}
+                  </p>
                 </div>
                 <strong>
                   +24.2%<small>demo velocity</small>
@@ -504,16 +579,16 @@ export default function IndexPage({
               <button
                 className="btn secondary full"
                 onClick={() => {
-                  send({ type: "alert", id: "nalu" });
+                  send({ type: "alert", id: "a-reece" });
                   notify(
-                    state.alerts.includes("nalu")
-                      ? "Nalu alert removed."
-                      : "Nalu alert saved in this browser.",
+                    state.alerts.includes("a-reece")
+                      ? "A-Reece alert removed."
+                      : "A-Reece alert saved in this browser.",
                   );
                 }}
               >
-                {state.alerts.includes("nalu")
-                  ? "Following Nalu"
+                {state.alerts.includes("a-reece")
+                  ? "Following A-Reece"
                   : "Set a gainer alert"}
                 <ArrowRight size={16} />
               </button>

@@ -1,4 +1,5 @@
 "use client";
+import { ArtistImage } from "./artist-image";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
@@ -89,8 +90,8 @@ export default function SonicNowPage() {
     setStatus("sample");
     timer.current = setTimeout(() => {
       if (mounted.current) {
-        send({ type: "history", artistId: "amara" });
-        setResult("amara");
+        send({ type: "history", artistId: "kabza" });
+        setResult("kabza");
         setStatus("result");
         notify("Sample identification saved to your listening history.");
       }
@@ -144,7 +145,7 @@ export default function SonicNowPage() {
           >
             Live music recognition is not configured. The microphone button
             checks permission and input only. Sample identification uses a
-            predetermined fictional result.
+            predetermined song reference; no music is analysed.
           </p>
           {error && (
             <div className="form-error listen-error" role="alert">
@@ -184,14 +185,11 @@ export default function SonicNowPage() {
             <Badge tone="purple">Simulated result</Badge>
           </div>
           <div className="history-row">
-            <img
-              src={found.image}
-              alt="Editorial portrait for fictional artist Amara Sol"
-            />
+            <ArtistImage artist={found} />
             <div>
               <strong>{found.track}</strong>
               <small>
-                {found.name} · {found.genre} · fictional demo track
+                {found.name} · {found.genre} · simulated identification
               </small>
             </div>
             <button
@@ -240,7 +238,7 @@ export default function SonicNowPage() {
                 const a = artists.find((a) => a.id === h.artistId)!;
                 return (
                   <div className="history-row" key={h.id}>
-                    <img src={a.image} alt="" />
+                    <ArtistImage artist={a} decorative />
                     <div>
                       <strong>{a.track}</strong>
                       <small>{a.name} · sample identification</small>
@@ -278,9 +276,7 @@ export default function SonicNowPage() {
             <br />
             the moment.
           </h3>
-          <p>
-            Discover the independent artists creating the next wave of culture.
-          </p>
+          <p>Discover the South African artists shaping the sound of home.</p>
           <Link className="btn primary" href="/index#the-index">
             Explore the INDEX
             <ArrowRight size={16} />

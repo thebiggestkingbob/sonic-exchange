@@ -15,9 +15,9 @@ function role(s: State, r: State["role"]) {
   return execute(s, { type: "role", role: r }, "role", now);
 }
 test("ranking supports case insensitive search, genre and velocity ordering", () => {
-  assert.equal(rankArtists("AMARA", "All genres", "score")[0].id, "amara");
-  assert.equal(rankArtists("", "Jazz", "score").length, 2);
-  assert.equal(rankArtists("", "All genres", "velocity")[0].id, "nalu");
+  assert.equal(rankArtists("KABZA", "All genres", "score")[0].id, "kabza");
+  assert.equal(rankArtists("", "Afro House", "score").length, 2);
+  assert.equal(rankArtists("", "All genres", "velocity")[0].id, "a-reece");
   assert.deepEqual(rankArtists("missing", "All genres", "score"), []);
 });
 test("visitor cannot pay out, offer, or distribute", () => {
@@ -26,7 +26,7 @@ test("visitor cannot pay out, offer, or distribute", () => {
   assert.throws(() =>
     execute(s, {
       type: "offer",
-      artistId: "amara",
+      artistId: "kabza",
       title: "Test",
       amount: 100,
       kind: "license",
@@ -116,8 +116,8 @@ test("payout validates cents, role and balance and records append-only ledger", 
   assert.equal(s.payouts[0].status, "requested");
 });
 const release = {
-  title: "Between the Light",
-  artist: "Amara Sol",
+  title: "Imithandazo",
+  artist: "Kabza De Small",
   genre: "Afro Soul",
   date: "2027-01-01",
   isrc: "ZAABC2600001",
@@ -168,7 +168,7 @@ test("booking requires venue role, date and venue", () => {
       {
         type: "offer",
         kind: "booking",
-        artistId: "amara",
+        artistId: "kabza",
         title: "Test show",
         amount: 10000,
       },
@@ -181,7 +181,7 @@ test("booking requires venue role, date and venue", () => {
     {
       type: "offer",
       kind: "booking",
-      artistId: "amara",
+      artistId: "kabza",
       title: "Test show",
       amount: 10000,
       date: "2027-01-01",
@@ -191,7 +191,7 @@ test("booking requires venue role, date and venue", () => {
     now,
   );
   assert.equal(s.deals[0].kind, "booking");
-  assert.ok(pullEstimate("amara", 100) <= 100);
+  assert.ok(pullEstimate("kabza", 100) <= 100);
 });
 test("demo artist cannot accept another artist’s offer", () => {
   let s = role(initialState(), "brand");
@@ -200,7 +200,7 @@ test("demo artist cannot accept another artist’s offer", () => {
     {
       type: "offer",
       kind: "license",
-      artistId: "nalu",
+      artistId: "a-reece",
       title: "A project",
       amount: 10000,
     },
@@ -214,11 +214,11 @@ test("demo artist cannot accept another artist’s offer", () => {
 });
 test("alerts and votes toggle, history persists and questions validate", () => {
   let s = initialState();
-  s = execute(s, { type: "alert", id: "amara" });
-  assert.deepEqual(s.alerts, ["amara"]);
-  s = execute(s, { type: "alert", id: "amara" });
+  s = execute(s, { type: "alert", id: "kabza" });
+  assert.deepEqual(s.alerts, ["kabza"]);
+  s = execute(s, { type: "alert", id: "kabza" });
   assert.equal(s.alerts.length, 0);
-  s = execute(s, { type: "history", artistId: "amara" }, "h", now);
+  s = execute(s, { type: "history", artistId: "kabza" }, "h", now);
   s = execute(s, { type: "vote", id: "01" });
   s = execute(
     s,
@@ -228,7 +228,7 @@ test("alerts and votes toggle, history persists and questions validate", () => {
   );
   assert.equal(
     readState(JSON.parse(JSON.stringify(s))).history[0].artistId,
-    "amara",
+    "kabza",
   );
   assert.throws(() =>
     execute(s, { type: "question", episode: "01", text: "short" }),
@@ -261,7 +261,7 @@ test("invalid calendar dates and unknown booking venues are rejected", () => {
       {
         type: "offer",
         kind: "booking",
-        artistId: "amara",
+        artistId: "kabza",
         title: "A show",
         amount: 10000,
         date: "2027-01-01",

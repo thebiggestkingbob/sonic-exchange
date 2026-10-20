@@ -29,7 +29,7 @@ export default function VenuesPage() {
   const [tab, setTab] = useState("Explore venues");
   const [query, setQuery] = useState("");
   const [city, setCity] = useState("All cities");
-  const [artistId, setArtistId] = useState("amara");
+  const [artistId, setArtistId] = useState("kabza");
   const [capacity, setCapacity] = useState(350);
   const [booking, setBooking] = useState<(typeof venues)[number] | null>(null);
   const [title, setTitle] = useState("");
@@ -223,7 +223,7 @@ export default function VenuesPage() {
                     />
                   </div>
                   <p>
-                    Heuristic: 0.18% of fictional audience, capped by capacity.
+                    Heuristic: 0.18% of simulated audience, capped by capacity.
                     Not a forecast or booking guarantee.
                   </p>
                 </div>
@@ -256,9 +256,9 @@ export default function VenuesPage() {
               description="Bookings move from request to artist acceptance, demo funding and simulated settlement."
             />
             <div className="agreements-explainer" style={{ marginBottom: 22 }}>
-              Amara Sol is the active demo artist. Request her booking, switch
-              to Artist to accept, then return to Venue to fund and complete the
-              simulation. Dates do not reserve a real venue.
+              Kabza De Small is the active demo artist. Request a demo booking,
+              switch to Artist to accept, then return to Venue to fund and
+              complete the simulation. Dates do not reserve a real venue.
             </div>
             <Agreements kind="booking" />
           </>
@@ -333,7 +333,7 @@ export default function VenuesPage() {
                 setBooking(null);
                 setTab("Bookings");
                 notify(
-                  "Demo booking requested. Switch to Artist to accept Amara Sol’s request.",
+                  "Demo booking requested. Switch to Artist to accept Kabza De Small’s request.",
                 );
               }
             }}
@@ -387,9 +387,9 @@ export default function VenuesPage() {
                 placeholder="5000.00"
               />
             </label>
-            {artistId !== "amara" && (
+            {artistId !== "kabza" && (
               <p className="safety-caption">
-                Only Amara Sol has an active acceptance workspace in this
+                Only Kabza De Small has an active acceptance workspace in this
                 prototype.
               </p>
             )}

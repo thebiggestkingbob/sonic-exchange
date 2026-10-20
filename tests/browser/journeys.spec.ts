@@ -1,5 +1,12 @@
 import { test, expect, type Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+// External photo availability must not determine the local prototype test result.
+test.beforeEach(async ({ page }) => {
+  await page.route(
+    /https:\/\/(upload\.wikimedia\.org|i\.scdn\.co|is1-ssl\.mzstatic\.com|hiibiza\.b-cdn\.net)\//,
+    (route) => route.abort(),
+  );
+});
 async function role(page: Page, r: string) {
   await page.getByRole("combobox", { name: "Demo role" }).selectOption(r);
 }
@@ -15,9 +22,11 @@ test("INDEX search, filter, sort, pagination, profile, alerts and persistence", 
   await expect(page.getByText("Showing 6–10 of 12 artists")).toBeVisible();
   await page
     .getByRole("textbox", { name: "Search artists", exact: true })
-    .fill("Amara");
+    .fill("Kabza");
   await expect(page.locator("tbody tr")).toHaveCount(1);
-  await page.getByRole("button", { name: "View Amara Sol profile" }).click();
+  await page
+    .getByRole("button", { name: "View Kabza De Small profile" })
+    .click();
   await expect(page.getByRole("dialog")).toBeVisible();
   await page.getByRole("button", { name: "Follow the movement" }).click();
   await expect(
@@ -31,7 +40,7 @@ test("INDEX search, filter, sort, pagination, profile, alerts and persistence", 
   ).toBeVisible();
   await page
     .getByRole("combobox", { name: "Filter by genre" })
-    .selectOption("Jazz");
+    .selectOption("Afro House");
   await expect(page.locator("tbody tr")).toHaveCount(2);
   await page
     .getByRole("combobox", { name: "Filter by genre" })
@@ -39,24 +48,22 @@ test("INDEX search, filter, sort, pagination, profile, alerts and persistence", 
   await page
     .getByRole("combobox", { name: "Sort ranking" })
     .selectOption("velocity");
-  await expect(page.locator("tbody tr").first()).toContainText("Nalu");
+  await expect(page.locator("tbody tr").first()).toContainText("A-Reece");
   await page.getByRole("tab", { name: "Genre velocity" }).click();
-  await expect(page.locator(".genre-row")).toHaveCount(7);
+  await expect(page.locator(".genre-row")).toHaveCount(6);
   await page.getByRole("tab", { name: "Radio chart" }).click();
-  await expect(
-    page.getByText("Between the Light", { exact: true }),
-  ).toBeVisible();
+  await expect(page.getByText("Imithandazo", { exact: true })).toBeVisible();
 });
 test("global search passes URL query into INDEX", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Open global search" }).click();
   await page
     .getByRole("textbox", { name: "Artist, genre or city" })
-    .fill("Nalu");
+    .fill("A-Reece");
   await page.getByRole("button", { name: "Search INDEX" }).click();
-  await expect(page).toHaveURL(/q=Nalu/);
+  await expect(page).toHaveURL(/q=A-Reece/);
   await expect(page.locator("tbody tr")).toHaveCount(1);
-  await expect(page.locator("tbody tr")).toContainText("Nalu");
+  await expect(page.locator("tbody tr")).toContainText("A-Reece");
 });
 test("SONIC NOW permission failure, explicit sample result and persisted history", async ({
   page,
@@ -78,7 +85,7 @@ test("SONIC NOW permission failure, explicit sample result and persisted history
   await page.getByRole("button", { name: "Try sample identification" }).click();
   await expect(
     page.getByRole("region", { name: "Sample identification result" }),
-  ).toContainText("Between the Light");
+  ).toContainText("Imithandazo");
   await page.reload();
   await expect(page.locator(".history-row")).toHaveCount(1);
   await expect(page.locator(".history-row")).toContainText(
@@ -150,7 +157,7 @@ test("brand offer flows through artist acceptance, escrow and settlement", async
   await role(page, "brand");
   await page
     .getByRole("textbox", { name: "Search artists", exact: true })
-    .fill("Amara");
+    .fill("Kabza");
   await page.getByRole("button", { name: "Start a connection" }).click();
   await page
     .getByRole("textbox", { name: "Project name" })
@@ -220,7 +227,7 @@ test("venue predictor and booking acceptance, funding and cancellation refund", 
     .click();
   await page
     .getByRole("textbox", { name: "Show name" })
-    .fill("An evening with Amara");
+    .fill("An evening with Kabza");
   await page.getByLabel("Show date").fill("2027-06-01");
   await page.getByRole("spinbutton", { name: "Artist fee (ZAR)" }).fill("4000");
   await page.getByRole("button", { name: "Create demo request" }).click();
@@ -432,3 +439,40 @@ for (const viewport of [
     expect(errors).toEqual([]);
   });
 }
+
+test("South African catalogue exposes real songs, simulated fan signals and safe photo fallback", async ({
+  page,
+}) => {
+  await page.route("https://upload.wikimedia.org/**", (route) => route.abort());
+  await page.goto("/index");
+  const search = page.getByRole("textbox", {
+    name: "Search artists",
+    exact: true,
+  });
+  for (const name of [
+    "Kabza De Small",
+    "25K",
+    "Tyla",
+    "A-Reece",
+    "DJ Maphorisa",
+  ]) {
+    await search.fill(name);
+    await page.getByRole("button", { name: `View ${name} profile` }).click();
+    const dialog = page.getByRole("dialog");
+    await expect(
+      dialog.getByRole("region", { name: "Song and fan activity" }),
+    ).toContainText("invented demo figures");
+    await expect(dialog.locator(".song-insight")).toHaveCount(2);
+    if (name === "Tyla") {
+      await expect(dialog.locator(".profile-cover img")).toHaveAttribute(
+        "src",
+        "/images/artists/tyla.svg",
+      );
+    }
+    await page.keyboard.press("Escape");
+    await expect(dialog).toHaveCount(0);
+  }
+  await search.fill("Water");
+  await expect(page.locator("tbody tr")).toHaveCount(1);
+  await expect(page.locator("tbody tr")).toContainText("Tyla");
+});

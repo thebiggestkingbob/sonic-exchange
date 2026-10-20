@@ -7,7 +7,7 @@ Date: 20 October 2026 (South Africa).
 - ESLint and strict TypeScript: passing.
 - Production Next.js build: passing. INDEX is served at `/` and `/index` (a rewrite avoids duplicate root/index output manifests).
 - Domain suite: 14 passing tests. Tests cover search/ranking, role restrictions, escrow lifecycle, one-time refunds, insufficient balances, payouts, rights/split/asset validation, delivery state, booking validation, history/participation persistence, corrupted storage, calendar dates and numeric CSV output.
-- Browser suite: 15 passing tests against the production server, including complete multi-role licensing and booking journeys, simulated release delivery, microphone error/cleanup, sample recognition, payout/export, player and participation, global search and mobile navigation.
+- Browser suite: 16 passing tests against the production server, including complete multi-role licensing and booking journeys, simulated release delivery, microphone error/cleanup, sample recognition, payout/export, player and participation, global search and mobile navigation.
 - Axe WCAG A/AA checks: no violations on the seven default destination views at each of the three captured viewports. This is an automated check, not a certification or a substitute for assistive-technology testing.
 - Final scoped regressions after the CSV and listening-icon refinements: 6 passing checks (payout/export, reduced-motion microphone, keyboard/table navigation, and all three viewport/accessibility captures).
 - Production dependency audit: zero reported vulnerabilities.
@@ -42,8 +42,12 @@ All 21 captures are in `docs/screenshots/`, named `<desktop|tablet|mobile>-<dest
 
 ## Known limits
 
-All external integrations remain unconfigured; see `INTEGRATIONS.md`. Browser-local role switching is not live authentication. Only Amara Sol has an active artist workspace for offer acceptance. Saved media declarations are filenames, not retained files. Earnings and rankings are fictional, and period views reuse the same seeded snapshot. The original legacy functional screenshots were not available; the two supplied images were used as visual references. The independent prototype was not accessed.
+All external integrations remain unconfigured; see `INTEGRATIONS.md`. Browser-local role switching is not live authentication. Kabza De Small is the sample reference in the simulated active artist workspace; no artist affiliation is implied. Saved media declarations are filenames, not retained files. Financial transactions, rankings and social metrics are simulated, and period views reuse the same seeded snapshot. The original legacy functional screenshots were not available; the two supplied images were used as visual references. The independent prototype was not accessed.
 
-Application commit: `94f4fda3810b4ebce169da4ae6550e9dbc173097`. Subsequent commits update documentation only.
+Original application commit: `94f4fda3810b4ebce169da4ae6550e9dbc173097`. See SOUTH_AFRICAN_CONTENT.md for the subsequent catalogue refresh.
 
-Preview publication was blocked by Vercel with **403 forbidden: You don't have permission to create a project.** No preview URL exists yet. The deployment target and resume steps are recorded in `PREVIEW_DEPLOYMENT.md`. Production deployment and merge require separate approval.
+The user subsequently created a preview through the authenticated Codespaces CLI. This content refresh requires a new preview; see PREVIEW_DEPLOYMENT.md. Production deployment and merge require separate approval.
+
+## South African catalogue refresh
+
+Lint, strict TypeScript, production build, 14 domain tests and 16 browser tests pass after the refresh. The added journey checks all five requested artist profiles, real-song search, simulated social metrics, and failed-photo fallback. The 21 viewport captures and automated accessibility checks were regenerated. Browser tests deliberately block remote artist-image hosts to verify local fallbacks deterministically; they do not establish third-party image availability. Public photo sources were located separately through image search. Live social metrics were not retrieved.

@@ -199,7 +199,7 @@ export default function ArtistsPage() {
   const [tab, setTab] = useState("Overview");
   const [payout, setPayout] = useState(false);
   const [amount, setAmount] = useState("");
-  const ownDeals = state.deals.filter((d) => d.artistId === "amara");
+  const ownDeals = state.deals.filter((d) => d.artistId === "kabza");
   const earned = state.ledger
     .filter((e) => e.amount > 0 && e.id !== "opening")
     .reduce((n, e) => n + e.amount, 0);

@@ -122,7 +122,7 @@ export function Header() {
                 required
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Try Amara Sol or Afro Soul"
+                placeholder="Try Tyla, Imithandazo or Amapiano"
               />
             </label>
             <button className="btn primary" type="submit">

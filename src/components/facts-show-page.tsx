@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { ArrowRight, Play, ThumbsUp, MessageCircle, Mic2 } from "lucide-react";
-import { episodes, artists, money } from "@/lib/data";
+import { episodes, artists, compact } from "@/lib/data";
 import { useDemo } from "./store";
 import { PageIntro, DemoNote, SectionTitle, Badge, Empty } from "./ui";
 export default function FactsShowPage() {
@@ -106,27 +106,26 @@ export default function FactsShowPage() {
       <div className="split-section">
         <section className="panel">
           <div className="panel-heading">
-            <h3>Behind the earnings.</h3>
-            <Badge tone="amber">Unverified demo</Badge>
+            <h3>Behind the fan response.</h3>
+            <Badge tone="amber">Simulated fan activity</Badge>
           </div>
           <p className="muted">
-            A preview of an earnings transparency leaderboard. These amounts are
-            fictional illustrations, not financial claims.
+            Real South African songs with illustrative fan likes. These are demo
+            signals, not live social counts or claims about artist earnings.
           </p>
           {artists.slice(0, 4).map((a, i) => (
             <div className="numbered-row" key={a.id}>
               <strong>0{i + 1}</strong>
               <div>
                 <p>{a.name}</p>
-                <small>Fictional artist · illustrative gross earnings</small>
+                <small>{a.track} · simulated likes</small>
               </div>
-              <strong>{money([1245000, 980000, 760000, 520000][i])}</strong>
+              <strong>{compact(a.songs[0].likes)}</strong>
             </div>
           ))}
           <p className="safety-caption" style={{ marginTop: 17 }}>
-            A verified leaderboard requires source statements, artist consent,
-            period definitions and independent review. None are connected in
-            this prototype.
+            A live fan leaderboard requires platform data connections and clear
+            reporting periods. No social feeds are connected in this prototype.
           </p>
         </section>
         <section className="panel" id="participate">
