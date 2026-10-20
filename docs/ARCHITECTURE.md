@@ -8,8 +8,10 @@ Next.js App Router, React, strict TypeScript, CSS design tokens, Lucide icons. V
 
 ## Routes and navigation order
 
+Home (`/`) and Marketplace (`/marketplace`, `/marketplace/[slug]`) now precede the seven established destinations. See NEXT_CHAPTER_DESIGN.md for the approved new scope, standalone marketplace state, assets and simulations.
+
 1. `/sonic-now`: microphone permissions, listening, explicit sample recognition, history.
-2. `/index` (also `/`): public landing, rankings, genre velocity, radio chart, search, genre filter, sort, pagination, saved alerts and artist detail.
+2. `/index`: cultural intelligence, rankings, genre velocity, radio chart, search, genre filter, sort, pagination, saved alerts and artist detail.
 3. `/artists`: role-gated overview, wallet, releases, deals, royalties, distribution, settings and transparency ledger.
 4. `/brands`: discovery, audience filters, offers, bids, agreements and simulated escrow.
 5. `/venues`: compliance demonstration, venue search, pull estimate and bookings.
@@ -33,7 +35,7 @@ Real South African artist/song references with simulated ranked observations, hi
 
 ## Visual system
 
-White, near-black, Helvetica Neue/Arial, restrained #D7B8FF accent; editorial type, grayscale music photography and soft lavender atmosphere based on the two user screenshots. Their alternate navigation and marketplace fiction are not adopted. INDEX is built first. New schemas and seeded figures describe the prototype only; absent original functional screenshots mean exact legacy semantics cannot be verified.
+White, near-black and Helvetica Neue/Arial, now using the approved Electric candy gradients, editorial typography, photographic cover treatments and refreshed workspace introductions. The latest user request adds Home and Marketplace while preserving the seven established destinations. New schemas and seeded figures describe the prototype only; absent original functional screenshots mean exact legacy semantics cannot be verified.
 
 ## Verification
 

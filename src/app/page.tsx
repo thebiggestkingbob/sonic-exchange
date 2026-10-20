@@ -1,9 +1,4 @@
-import IndexPage from "@/components/index-page";
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: Promise<{ q?: string }>;
-}) {
-  const { q } = await searchParams;
-  return <IndexPage key={q ?? ""} initialQuery={q ?? ""} />;
+import HomePage from "@/components/home-page";
+export default function Home() {
+  return <HomePage />;
 }

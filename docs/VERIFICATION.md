@@ -63,3 +63,9 @@ Electric candy is now rendered as the default palette from the root layout on ev
 Validation: ESLint, strict TypeScript, production build, 14 domain tests and 20 browser tests, including the approved palette across all seven destinations, accessibility, mobile width and all existing user journeys. Remote artist photos use bundled fallbacks in deterministic tests.
 
 The connected Vercel account lists the intended team but does not expose `sonic-exchange-platform` or its previous preview deployment (404); a new deployment cannot be confirmed through that connection. No replacement project or production deployment was created.
+
+## Home and Marketplace revision
+
+The new Home, six-listing Marketplace and six asset-detail routes are implemented alongside the seven established destinations. All 18 domain tests and 27 browser tests pass. ESLint, strict TypeScript and the production build pass. Three new screen types were checked at desktop, tablet and mobile sizes with axe A/AA scans and overflow checks; existing workspace workflows and all comparison palettes remain covered. Captures are in `docs/next-chapter/` and refreshed `docs/screenshots/`.
+
+Home is now `/`; cultural intelligence remains at `/index`, which rewrites internally to `/cultural-index` to avoid a Next.js manifest conflict. Marketplace stores are versioned independently of existing wallets and ledgers. The original synthesized WAV, browser-local offers, checkout receipts, rights options and downloads are described in `NEXT_CHAPTER_DESIGN.md`. They do not constitute live music rights sales or payments. No deployment was performed for this revision.

@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 const config: NextConfig = {
   poweredByHeader: false,
   async rewrites() {
-    return [{ source: "/index", destination: "/" }];
+    return [{ source: "/index", destination: "/cultural-index" }];
   },
   async headers() {
     return [

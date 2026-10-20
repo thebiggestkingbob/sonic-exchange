@@ -13,9 +13,11 @@ import {
 } from "lucide-react";
 import { navigation, type Role } from "@/lib/data";
 import { useDemo } from "./store";
+import { useMarket } from "./market-store";
 import { Modal } from "./ui";
 export function Header() {
   const pathname = usePathname();
+  const market = useMarket();
   const { state, send, ready } = useDemo();
   const [menu, setMenu] = useState(false);
   const [query, setQuery] = useState("");
@@ -29,11 +31,7 @@ export function Header() {
       </a>
       <header className="header">
         <div className="header-inner">
-          <Link
-            href="/index"
-            className="wordmark"
-            aria-label="SONIC EXCHANGE home"
-          >
+          <Link href="/" className="wordmark" aria-label="SONIC EXCHANGE home">
             SONIC EXCHANGE<span>.</span>
           </Link>
           <nav
@@ -46,7 +44,9 @@ export function Header() {
                 href={href}
                 onClick={() => setMenu(false)}
                 aria-current={
-                  pathname === href || (href === "/index" && pathname === "/")
+                  pathname === href ||
+                  (href === "/marketplace" &&
+                    pathname.startsWith("/marketplace/"))
                     ? "page"
                     : undefined
                 }
@@ -146,6 +146,7 @@ export function Header() {
               className="btn primary"
               onClick={() => {
                 send({ type: "reset" });
+                market.act({ type: "reset" });
                 setReset(false);
               }}
             >
@@ -161,7 +162,7 @@ export function Footer() {
   return (
     <footer className="footer">
       <div>
-        <Link className="wordmark" href="/index">
+        <Link className="wordmark" href="/">
           SONIC EXCHANGE<span>.</span>
         </Link>
         <p>The culture. The creators. The connection.</p>

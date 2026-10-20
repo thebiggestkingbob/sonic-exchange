@@ -1,5 +1,7 @@
 export type Role = "visitor" | "artist" | "brand" | "venue";
 export const navigation = [
+  ["HOME", "/"],
+  ["MARKETPLACE", "/marketplace"],
   ["SONIC NOW", "/sonic-now"],
   ["INDEX", "/index"],
   ["ARTISTS", "/artists"],

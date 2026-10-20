@@ -392,7 +392,7 @@ for (const viewport of [
       else if (path === "/brands") await role(page, "brand");
       else if (path === "/venues") await role(page, "venue");
       await page.evaluate(() => document.fonts.ready);
-      await expect(page.locator("h1")).toBeVisible();
+      await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
       await expect
         .poll(() =>
           page.evaluate(

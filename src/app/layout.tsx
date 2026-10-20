@@ -1,3 +1,4 @@
+import { MarketProvider } from "@/components/market-store";
 import { Suspense } from "react";
 import { StyleReview } from "@/components/style-review";
 import type { Metadata } from "next";
@@ -5,6 +6,7 @@ import { DemoProvider } from "@/components/store";
 import { Header, Footer } from "@/components/shell";
 import "./globals.css";
 import "./colour-review.css";
+import "./exchange-design.css";
 export const metadata: Metadata = {
   title: {
     default: "SONIC EXCHANGE — A new frequency for music",
@@ -23,12 +25,14 @@ export default function RootLayout({
     <html lang="en" data-look="electric">
       <body>
         <DemoProvider>
-          <Header />
-          <main id="main">{children}</main>
-          <Footer />
-          <Suspense fallback={null}>
-            <StyleReview />
-          </Suspense>
+          <MarketProvider>
+            <Header />
+            <main id="main">{children}</main>
+            <Footer />
+            <Suspense fallback={null}>
+              <StyleReview />
+            </Suspense>
+          </MarketProvider>
         </DemoProvider>
       </body>
     </html>

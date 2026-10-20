@@ -11,7 +11,7 @@ npm ci
 npm run dev
 ```
 
-Open `http://localhost:3000`. INDEX is available at `/` and `/index`. Navigation order: SONIC NOW, INDEX, ARTISTS, BRANDS, VENUES, DISTRIBUTION, FACTS SHOW.
+Open `http://localhost:3000`. The new Home is at `/`, Marketplace at `/marketplace`, asset detail at `/marketplace/[slug]`, and the cultural INDEX at `/index`. Navigation retains SONIC NOW, INDEX, ARTISTS, BRANDS, VENUES, DISTRIBUTION and FACTS SHOW after the two new entry points.
 
 The header's **Demo role** selector opens artist, brand and venue workspaces. It is not authentication. All artists, balances, financial actions, rankings, verification, delivery and editorial content are clearly labelled demonstrations. Progress is saved in this browser only. No credentials are needed.
 
@@ -25,6 +25,7 @@ npm run test:e2e    # in a second terminal; requires Chromium
 
 Playwright uses `/usr/bin/chromium` in the managed workspace. For other machines, run `npx playwright install chromium`; the config falls back to the installed Playwright browser. Browser tests capture all seven pages at desktop, tablet and mobile widths into `docs/screenshots` and run axe accessibility scans.
 
+- [Home and Marketplace redesign, scope and verification](docs/NEXT_CHAPTER_DESIGN.md)
 - [Architecture, routes and role matrix](docs/ARCHITECTURE.md)
 - [Integration readiness and media provenance](docs/INTEGRATIONS.md)
 - [Review journeys, scope and rollback](docs/REVIEW.md)
