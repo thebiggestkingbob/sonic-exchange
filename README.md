@@ -28,6 +28,8 @@ Playwright uses `/usr/bin/chromium` in the managed workspace. For other machines
 - [Architecture, routes and role matrix](docs/ARCHITECTURE.md)
 - [Integration readiness and media provenance](docs/INTEGRATIONS.md)
 - [Review journeys, scope and rollback](docs/REVIEW.md)
+- [Verification and viewport screenshots](docs/VERIFICATION.md)
+- [Prepared preview deployment and access blocker](docs/PREVIEW_DEPLOYMENT.md)
 - [Master implementation brief](docs/CODEX_MASTER_REDESIGN_PROMPT.md)
 
 Preview deployments only. Production requires explicit approval.

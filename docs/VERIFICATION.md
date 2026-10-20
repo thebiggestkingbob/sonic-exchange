@@ -44,4 +44,6 @@ All 21 captures are in `docs/screenshots/`, named `<desktop|tablet|mobile>-<dest
 
 All external integrations remain unconfigured; see `INTEGRATIONS.md`. Browser-local role switching is not live authentication. Only Amara Sol has an active artist workspace for offer acceptance. Saved media declarations are filenames, not retained files. Earnings and rankings are fictional, and period views reuse the same seeded snapshot. The original legacy functional screenshots were not available; the two supplied images were used as visual references. The independent prototype was not accessed.
 
-Preview deployment status, tested code commit and the literal preview URL will be included in the draft pull request. Production deployment and merge require separate approval.
+Application commit: `94f4fda3810b4ebce169da4ae6550e9dbc173097`. Subsequent commits update documentation only.
+
+Preview publication was blocked by Vercel with **403 forbidden: You don't have permission to create a project.** No preview URL exists yet. The deployment target and resume steps are recorded in `PREVIEW_DEPLOYMENT.md`. Production deployment and merge require separate approval.
