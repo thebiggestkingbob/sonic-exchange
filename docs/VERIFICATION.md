@@ -51,3 +51,7 @@ The user subsequently created a preview through the authenticated Codespaces CLI
 ## South African catalogue refresh
 
 Lint, strict TypeScript, production build, 14 domain tests and 16 browser tests pass after the refresh. The added journey checks all five requested artist profiles, real-song search, simulated social metrics, and failed-photo fallback. The 21 viewport captures and automated accessibility checks were regenerated. Browser tests deliberately block remote artist-image hosts to verify local fallbacks deterministically; they do not establish third-party image availability. Public photo sources were located separately through image search. Live social metrics were not retrieved.
+
+## Colour-only comparison review
+
+The actual app now supports opt-in `look` query parameters for midnight violet, warm aubergine and ocean blue. Default appearance remains unchanged. Lint, TypeScript, build, 14 domain tests and all 19 browser tests pass. The three added browser checks cover all seven destination views, unchanged main-content bounding boxes, axe contrast/accessibility, mobile width, and returning to the original palette. There are 24 actual application captures in `docs/style-review/`; see COLOUR_REVIEW.md. A low-contrast inline helper label in the dark palette was repaired before the final passing run. No live deployment was performed from this environment.

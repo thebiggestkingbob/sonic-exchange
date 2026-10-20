@@ -168,7 +168,7 @@ export default function FactsShowPage() {
                 gap: 15,
               }}
             >
-              <small style={{ color: "#755d85" }}>
+              <small style={{ color: "var(--paint-755d85, #755d85)" }}>
                 {question.length}/500 · 10 characters minimum
               </small>
               <button className="btn primary small" type="submit">

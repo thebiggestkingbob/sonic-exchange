@@ -188,7 +188,10 @@ export default function BrandsPage({
               title="Find a voice that feels right."
               description="Explore the sound, the audience and the possibility."
               action={
-                <SlidersHorizontal size={19} style={{ color: "#9e81b1" }} />
+                <SlidersHorizontal
+                  size={19}
+                  style={{ color: "var(--paint-9e81b1, #9e81b1)" }}
+                />
               }
             />
             <div className="filter-row">
@@ -317,7 +320,10 @@ export default function BrandsPage({
         {tab === "Data transparency" && (
           <div className="workspace-grid">
             <section className="panel">
-              <ShieldCheck size={30} style={{ color: "#a17bbb" }} />
+              <ShieldCheck
+                size={30}
+                style={{ color: "var(--paint-a17bbb, #a17bbb)" }}
+              />
               <h2 style={{ marginTop: 20 }}>Trust starts with the source.</h2>
               <p className="muted">
                 Artist names and song references are real. Audience estimates,

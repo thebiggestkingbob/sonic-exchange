@@ -231,7 +231,10 @@ export default function VenuesPage() {
               <div className="callout">
                 <CalendarDays
                   size={25}
-                  style={{ color: "#a179bd", marginBottom: 15 }}
+                  style={{
+                    color: "var(--paint-a179bd, #a179bd)",
+                    marginBottom: 15,
+                  }}
                 />
                 <h3>A clear path to the stage.</h3>
                 <p>
@@ -266,7 +269,10 @@ export default function VenuesPage() {
         {tab === "Compliance" && (
           <div className="workspace-grid">
             <section className="panel">
-              <ShieldCheck size={30} style={{ color: "#ab83c4" }} />
+              <ShieldCheck
+                size={30}
+                style={{ color: "var(--paint-ab83c4, #ab83c4)" }}
+              />
               <h2 style={{ marginTop: 20 }}>
                 The right foundations
                 <br />

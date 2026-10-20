@@ -110,8 +110,16 @@ function RoyaltyChart() {
       >
         <defs>
           <linearGradient id="royalty-area" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#d7b8ff" stopOpacity=".4" />
-            <stop offset="100%" stopColor="#d7b8ff" stopOpacity="0" />
+            <stop
+              offset="0%"
+              stopColor="var(--paint-d7b8ff, #d7b8ff)"
+              stopOpacity=".4"
+            />
+            <stop
+              offset="100%"
+              stopColor="var(--paint-d7b8ff, #d7b8ff)"
+              stopOpacity="0"
+            />
           </linearGradient>
         </defs>
         {[35, 80, 125, 170].map((y) => (
@@ -337,7 +345,10 @@ export default function ArtistsPage() {
                         href="/distribution"
                         aria-label="Open rights and distribution"
                       >
-                        <CheckCircle2 size={18} style={{ color: "#b18ecf" }} />
+                        <CheckCircle2
+                          size={18}
+                          style={{ color: "var(--paint-b18ecf, #b18ecf)" }}
+                        />
                       </Link>
                     </div>
                     <div>
@@ -375,7 +386,10 @@ export default function ArtistsPage() {
             <section className="panel">
               <div className="panel-heading">
                 <h3>Your balance. Your perspective.</h3>
-                <Wallet size={23} style={{ color: "#ad85ce" }} />
+                <Wallet
+                  size={23}
+                  style={{ color: "var(--paint-ad85ce, #ad85ce)" }}
+                />
               </div>
               <p className="muted">
                 Request a payout from the simulated balance. The amount is

@@ -1,7 +1,10 @@
+import { Suspense } from "react";
+import { StyleReview } from "@/components/style-review";
 import type { Metadata } from "next";
 import { DemoProvider } from "@/components/store";
 import { Header, Footer } from "@/components/shell";
 import "./globals.css";
+import "./colour-review.css";
 export const metadata: Metadata = {
   title: {
     default: "SONIC EXCHANGE — A new frequency for music",
@@ -23,6 +26,9 @@ export default function RootLayout({
           <Header />
           <main id="main">{children}</main>
           <Footer />
+          <Suspense fallback={null}>
+            <StyleReview />
+          </Suspense>
         </DemoProvider>
       </body>
     </html>

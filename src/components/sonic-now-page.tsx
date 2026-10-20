@@ -266,7 +266,7 @@ export default function SonicNowPage() {
         <aside className="callout">
           <AudioLines
             size={30}
-            style={{ color: "#af87d0", marginBottom: 17 }}
+            style={{ color: "var(--paint-af87d0, #af87d0)", marginBottom: 17 }}
           />
           <p className="eyebrow" style={{ marginTop: 10 }}>
             FOLLOW THE FREQUENCY

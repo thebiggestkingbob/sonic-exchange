@@ -614,7 +614,10 @@ export default function DistributionPage() {
                   ].map((x) => (
                     <div key={x}>
                       <span>{x}</span>
-                      <CheckCircle2 size={15} style={{ color: "#b293ca" }} />
+                      <CheckCircle2
+                        size={15}
+                        style={{ color: "var(--paint-b293ca, #b293ca)" }}
+                      />
                     </div>
                   ))}
                 </div>
@@ -662,7 +665,10 @@ export default function DistributionPage() {
         {tab === "Rights & royalties" && (
           <div className="workspace-grid">
             <section className="panel">
-              <ShieldCheck size={28} style={{ color: "#b18bcf" }} />
+              <ShieldCheck
+                size={28}
+                style={{ color: "var(--paint-b18bcf, #b18bcf)" }}
+              />
               <h2 style={{ marginTop: 20 }}>Ownership stays in view.</h2>
               <p className="muted">
                 Every simulated submission checks a rights declaration and a
