@@ -1,9 +1,11 @@
 import { notFound } from "next/navigation";
 import DesignDirection from "@/components/design-directions";
 export function generateStaticParams() {
-  return ["liquid", "kinetic", "kinetic-light", "chrome"].map((direction) => ({
-    direction,
-  }));
+  return ["liquid", "kinetic", "kinetic-light", "culture", "chrome"].map(
+    (direction) => ({
+      direction,
+    }),
+  );
 }
 export default async function Page({
   params,
@@ -15,13 +17,19 @@ export default async function Page({
     direction !== "liquid" &&
     direction !== "kinetic" &&
     direction !== "kinetic-light" &&
+    direction !== "culture" &&
     direction !== "chrome"
   )
     notFound();
   return (
     <DesignDirection
-      direction={direction === "kinetic-light" ? "kinetic" : direction}
-      light={direction === "kinetic-light"}
+      direction={
+        direction === "kinetic-light" || direction === "culture"
+          ? "kinetic"
+          : direction
+      }
+      light={direction === "kinetic-light" || direction === "culture"}
+      platformLook={direction === "culture" ? "culture" : "kinetic-light"}
     />
   );
 }

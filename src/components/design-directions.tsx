@@ -167,9 +167,11 @@ function Artwork({ direction }: { direction: Direction }) {
 export default function DesignDirection({
   direction,
   light = false,
+  platformLook = "kinetic-light",
 }: {
   direction: Direction;
   light?: boolean;
+  platformLook?: string;
 }) {
   const [paused, setPaused] = useState(false);
   const [journey, setJourney] = useState(journeys[0]);
@@ -256,7 +258,7 @@ export default function DesignDirection({
           <a href="#direction-about">The idea</a>
           <a href="#direction-start">Find your way</a>
           <Link
-            href={light ? "/marketplace?look=kinetic-light" : "/marketplace"}
+            href={light ? `/marketplace?look=${platformLook}` : "/marketplace"}
           >
             Marketplace
             <ArrowUpRight size={13} />
@@ -264,7 +266,7 @@ export default function DesignDirection({
         </nav>
         <Link
           className="direction-enter"
-          href={light ? "/index?look=kinetic-light" : "/index"}
+          href={light ? `/index?look=${platformLook}` : "/index"}
         >
           Enter platform
           <ArrowUpRight size={15} />
@@ -374,14 +376,17 @@ export default function DesignDirection({
                 Build a release, find a collaboration or bring talent to a
                 stage. Whatever brings you here, there’s a way in.
               </p>
-              <Link href="/sonic-now" className="direction-inline">
+              <Link
+                href={light ? `/sonic-now?look=${platformLook}` : "/sonic-now"}
+                className="direction-inline"
+              >
                 Start with a sound
                 <AudioLines size={18} />
               </Link>
             </div>
           </div>
           <div className="direction-three">
-            <Link href={light ? "/index?look=kinetic-light" : "/index"}>
+            <Link href={light ? `/index?look=${platformLook}` : "/index"}>
               <span>01</span>
               <h3>Discover.</h3>
               <p>
@@ -391,7 +396,9 @@ export default function DesignDirection({
               <ArrowUpRight />
             </Link>
             <Link
-              href={light ? "/marketplace?look=kinetic-light" : "/marketplace"}
+              href={
+                light ? `/marketplace?look=${platformLook}` : "/marketplace"
+              }
             >
               <span>02</span>
               <h3>Exchange.</h3>
@@ -447,7 +454,7 @@ export default function DesignDirection({
               <p>{journey.text}</p>
               <Link
                 href={
-                  light ? `${journey.href}?look=kinetic-light` : journey.href
+                  light ? `${journey.href}?look=${platformLook}` : journey.href
                 }
                 className="direction-button"
                 onClick={() => send({ type: "role", role: journey.role })}
@@ -498,7 +505,7 @@ export default function DesignDirection({
           </h2>
           <Link
             className="direction-button"
-            href={light ? "/marketplace?look=kinetic-light" : "/marketplace"}
+            href={light ? `/marketplace?look=${platformLook}` : "/marketplace"}
           >
             Explore Marketplace
             <ArrowUpRight size={18} />
