@@ -24,6 +24,7 @@ export function Header() {
   const [search, setSearch] = useState(false);
   const [reset, setReset] = useState(false);
   const router = useRouter();
+  if (pathname.startsWith("/design-lab")) return null;
   return (
     <>
       <a className="skip-link" href="#main">
@@ -164,6 +165,7 @@ export function Header() {
 }
 export function Footer() {
   const pathname = usePathname();
+  if (pathname.startsWith("/design-lab")) return null;
   return (
     <footer className={pathname === "/" ? "footer world-footer" : "footer"}>
       <div>
