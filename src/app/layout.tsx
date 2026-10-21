@@ -9,6 +9,7 @@ import "./colour-review.css";
 import "./exchange-design.css";
 import "./sound-world.css";
 import "./design-directions.css";
+import "./kinetic-review.css";
 export const metadata: Metadata = {
   title: {
     default: "SONIC EXCHANGE — A new frequency for music",

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 const looks = [
+  ["kinetic-light", "Culture in Motion · light"],
   ["original", "Original lavender"],
   ["midnight", "Midnight violet"],
   ["studio", "Warm aubergine"],
