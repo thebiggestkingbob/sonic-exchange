@@ -7,6 +7,7 @@ import { Header, Footer } from "@/components/shell";
 import "./globals.css";
 import "./colour-review.css";
 import "./exchange-design.css";
+import "./sound-world.css";
 export const metadata: Metadata = {
   title: {
     default: "SONIC EXCHANGE — A new frequency for music",

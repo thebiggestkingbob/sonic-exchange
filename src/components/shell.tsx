@@ -29,7 +29,7 @@ export function Header() {
       <a className="skip-link" href="#main">
         Skip to content
       </a>
-      <header className="header">
+      <header className={pathname === "/" ? "header world-header" : "header"}>
         <div className="header-inner">
           <Link href="/" className="wordmark" aria-label="SONIC EXCHANGE home">
             SONIC EXCHANGE<span>.</span>
@@ -93,7 +93,11 @@ export function Header() {
           </div>
         </div>
       </header>
-      <div className="demo-ribbon">
+      <div
+        className={
+          pathname === "/" ? "demo-ribbon world-ribbon" : "demo-ribbon"
+        }
+      >
         <div>
           <span className="demo-dot" />
           INDEPENDENT BY DESIGN. CONNECTED BY MUSIC.
@@ -159,8 +163,9 @@ export function Header() {
   );
 }
 export function Footer() {
+  const pathname = usePathname();
   return (
-    <footer className="footer">
+    <footer className={pathname === "/" ? "footer world-footer" : "footer"}>
       <div>
         <Link className="wordmark" href="/">
           SONIC EXCHANGE<span>.</span>

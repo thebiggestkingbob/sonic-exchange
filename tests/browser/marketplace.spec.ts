@@ -11,7 +11,7 @@ test("Home separates landing from INDEX and routes to new and established destin
 }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
-    "Music has value.",
+    "A new world",
   );
   await page
     .getByRole("link", { name: "Explore Marketplace", exact: true })

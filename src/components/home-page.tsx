@@ -1,301 +1,423 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
   ArrowUpRight,
+  ArrowDown,
   ArrowRight,
   AudioLines,
+  Pause,
   Play,
-  Disc3,
-  ChartNoAxesCombined,
-  Fingerprint,
-  Zap,
-  MoveUpRight,
+  Orbit,
+  ScanLine,
+  Sparkles,
+  Check,
 } from "lucide-react";
+import { SoundWorld } from "./sound-world";
+import { useDemo } from "./store";
 import { musicAssets, type MusicAsset } from "@/lib/marketplace";
-import { artists } from "@/lib/data";
 import { AssetCard, PreviewPlayer } from "./marketplace-ui";
+import { artists, type Role } from "@/lib/data";
 import { ArtistImage } from "./artist-image";
-import { MiniChart, Modal } from "./ui";
+const paths = [
+  {
+    id: "visitor",
+    title: "I’m here to discover",
+    label: "Your next favourite lives here.",
+    text: "Find the people shaping South African music. Explore artist stories and song references, try the listening demo, or dig through the Marketplace.",
+    href: "/index",
+    action: "Explore the INDEX",
+    destinations: ["INDEX", "SONIC NOW", "MARKETPLACE"],
+  },
+  {
+    id: "artist",
+    title: "I make music",
+    label: "Your sound. Your next chapter.",
+    text: "Step into an artist workspace. Explore release management, rights, royalties and collaboration opportunities—all in a guided demo.",
+    href: "/artists",
+    action: "Try the artist workspace",
+    destinations: ["ARTISTS", "DISTRIBUTION", "MARKETPLACE"],
+  },
+  {
+    id: "brand",
+    title: "I represent a brand",
+    label: "Find a sound that says something.",
+    text: "Discover South African artists, explore audience insights and try a licensing offer. Follow a simulated agreement from artist acceptance to escrow.",
+    href: "/brands",
+    action: "Try the brand workspace",
+    destinations: ["BRANDS", "INDEX", "MARKETPLACE"],
+  },
+  {
+    id: "venue",
+    title: "I bring people together",
+    label: "Give the next wave a stage.",
+    text: "Explore artists for your venue, try an illustrative audience estimate and walk through a booking—from request to acceptance and demo funding.",
+    href: "/venues",
+    action: "Try the venue workspace",
+    destinations: ["VENUES", "INDEX", "FACTS SHOW"],
+  },
+] as const;
+const chapters = [
+  {
+    number: "01",
+    title: "Find your frequency.",
+    text: "Start with discovery. Explore the cultural INDEX, meet South African artists and follow the sounds that move you.",
+    href: "/index",
+    action: "Discover the INDEX",
+    icon: ScanLine,
+  },
+  {
+    number: "02",
+    title: "Explore the possibilities.",
+    text: "Dig through original demo listings in Marketplace. Listen, save a sound and compare the different kinds of music rights.",
+    href: "/marketplace",
+    action: "Browse demo assets",
+    icon: Orbit,
+  },
+  {
+    number: "03",
+    title: "Make your next move.",
+    text: "Choose your workspace. Artists manage releases; brands explore collaborations; venues bring the culture to a stage.",
+    href: "#your-world",
+    action: "Find your starting point",
+    icon: Sparkles,
+  },
+];
 export default function HomePage() {
+  const [paused, setPaused] = useState(false);
+  const [path, setPath] = useState<(typeof paths)[number]>(paths[0]);
   const [playing, setPlaying] = useState<MusicAsset | null>(null);
-  const [film, setFilm] = useState(false);
+  const root = useRef<HTMLDivElement>(null);
+  const { send } = useDemo();
+  useEffect(() => {
+    const elements = root.current?.querySelectorAll("[data-reveal]");
+    if (!elements || !window.IntersectionObserver) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries)
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+            observer.unobserve(entry.target);
+          }
+      },
+      { threshold: 0.1 },
+    );
+    for (const el of elements) observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
   return (
-    <div className="exchange-home">
-      <section className="home-hero editorial-shell">
-        <div className="home-hero-copy">
-          <p className="edition-label">
-            <span /> SOUTH AFRICAN SOUND. WORLDWIDE POSSIBILITY.
-          </p>
-          <h1>
-            Music has value.
+    <div className={`sonic-world ${paused ? "motion-paused" : ""}`} ref={root}>
+      <section className="world-hero" aria-labelledby="world-title">
+        <div className="world-hero-top">
+          <span>
+            <i /> SOUTH AFRICAN ROOTS. UNLIMITED POSSIBILITIES.
+          </span>
+          <span>INDEPENDENT BY DESIGN / 001</span>
+        </div>
+        <div className="world-hero-content">
+          <p className="world-kicker">THIS IS SONIC EXCHANGE.</p>
+          <h1 id="world-title">
+            A new world
             <br />
-            Make it <em>move.</em>
+            of <span>sound.</span>
+            <i aria-hidden="true">✳</i>
           </h1>
-          <p className="home-deck">
-            A new home for the sound of tomorrow. Discover the culture. Connect
-            with its creators. Find music that moves you.
+          <p className="world-intro">
+            Discover music. Connect with its makers.
+            <br />
+            Turn your next idea into something that moves.
           </p>
-          <div className="button-row">
-            <Link className="btn primary" href="/marketplace">
-              Explore Marketplace <ArrowUpRight size={18} />
+          <div className="world-hero-actions">
+            <a className="world-button acid" href="#how-it-works">
+              Show me around <ArrowDown size={17} />
+            </a>
+            <Link className="world-text-link" href="/marketplace">
+              Explore Marketplace <ArrowUpRight size={17} />
             </Link>
-            <button className="home-film" onClick={() => setFilm(true)}>
-              <span>
-                <Play size={12} fill="currentColor" />
-              </span>
-              Step inside SONIC
-            </button>
-          </div>
-          <div className="hero-community">
-            <span className="mini-avatars">
-              {artists.slice(0, 3).map((a) => (
-                <ArtistImage key={a.id} artist={a} decorative />
-              ))}
-            </span>
-            <span>Rooted here. Ready for everywhere.</span>
-            <span className="community-line" />
           </div>
         </div>
-        <div className="home-hero-stage">
-          <div className="stage-orbit orbit-one" />
-          <div className="stage-orbit orbit-two" />
-          <div className="hero-stage-grain" />
-          <span className="stage-label">TURN UP WHAT’S NEXT</span>
-          <img
-            className="stage-portrait"
-            src="/images/hero.webp"
-            alt="Music listener wearing headphones"
-            fetchPriority="high"
-          />
-          <div className="stage-wave">
-            {[28, 62, 98, 45, 122, 75, 105, 42, 82, 116, 58, 34].map((n, i) => (
-              <i key={i} style={{ height: n }} />
-            ))}
-          </div>
-          <div className="stage-sticker">
-            <AudioLines size={25} />
-            <span>
-              Music. Culture.
+        <SoundWorld paused={paused} />
+        <div className="world-hero-bottom">
+          <a href="#what-is-sonic">
+            <span className="scroll-line" /> SCROLL TO ENTER
+          </a>
+          <span>A SPACE FOR MUSIC TO BECOME MORE.</span>
+          <button
+            aria-pressed={paused}
+            onClick={() => setPaused(!paused)}
+            aria-label={paused ? "Resume visual motion" : "Pause visual motion"}
+          >
+            {paused ? <Play size={13} /> : <Pause size={13} />}
+            <span>{paused ? "MOTION OFF" : "MOTION ON"}</span>
+          </button>
+        </div>
+      </section>
+      <section className="world-definition" id="what-is-sonic">
+        <div className="world-definition-top">
+          <p className="world-kicker">01 / MEET THE EXCHANGE</p>
+          <span className="world-asterisk" aria-hidden="true">
+            ✳
+          </span>
+        </div>
+        <div className="definition-grid" data-reveal>
+          <h2>
+            Music moves culture.
+            <br />
+            We{" "}
+            <em>
+              connect
               <br />
-              <strong>Possibility.</strong>
-            </span>
-            <ArrowUpRight size={20} />
-          </div>
-          <div className="stage-index">01 / A NEW FREQUENCY</div>
-        </div>
-      </section>
-      <div className="sound-marquee" aria-hidden="true">
-        <span>INDEPENDENT BY DESIGN</span>
-        <span>✳</span>
-        <span>CONNECTED BY MUSIC</span>
-        <span>✳</span>
-        <span>LOCAL ROOTS. GLOBAL REACH.</span>
-        <span>✳</span>
-        <span>THE NEXT WAVE STARTS HERE</span>
-        <span>✳</span>
-      </div>
-      <section
-        className="home-paths editorial-shell"
-        aria-label="Explore the exchange"
-      >
-        {[
-          {
-            icon: Disc3,
-            title: "Find your next sound",
-            copy: "Explore tracks, beats and creative possibilities.",
-            href: "/marketplace",
-            number: "01",
-          },
-          {
-            icon: ChartNoAxesCombined,
-            title: "Follow the movement",
-            copy: "Meet the South African artists shaping the culture.",
-            href: "/index",
-            number: "02",
-          },
-          {
-            icon: Fingerprint,
-            title: "Build on your terms",
-            copy: "Your music. Your rights. Your next chapter.",
-            href: "/artists",
-            number: "03",
-          },
-          {
-            icon: Zap,
-            title: "Catch it in the moment",
-            copy: "Hear something? Find your frequency.",
-            href: "/sonic-now",
-            number: "04",
-          },
-        ].map(({ icon: Icon, ...item }) => (
-          <Link key={item.href} href={item.href}>
-            <span className="path-top">
-              <Icon size={24} />
-              <small>{item.number}</small>
-            </span>
-            <h2>{item.title}</h2>
-            <p>{item.copy}</p>
-            <ArrowUpRight size={18} className="path-arrow" />
-          </Link>
-        ))}
-      </section>
-      <section className="home-assets editorial-shell">
-        <div className="editorial-heading">
+              the dots.
+            </em>
+          </h2>
           <div>
-            <p className="eyebrow">THE CRATE / VOL. 01</p>
+            <p className="definition-lead">
+              SONIC EXCHANGE brings music discovery, creative opportunities and
+              artist tools into one connected platform.
+            </p>
+            <p>
+              It’s a place for artists to build, brands to collaborate, venues
+              to connect with talent—and everyone else to discover what’s next.
+            </p>
+            <p className="definition-footnote">
+              <Check size={15} /> You don’t need to be a music expert to start.
+            </p>
+          </div>
+        </div>
+        <div className="definition-bottom">
+          <span>DISCOVER.</span>
+          <span>CONNECT.</span>
+          <span>CREATE.</span>
+          <ArrowUpRight size={36} />
+        </div>
+      </section>
+      <section className="world-how" id="how-it-works">
+        <div className="world-section-heading" data-reveal>
+          <div>
+            <p className="world-kicker">02 / YOUR FIRST STEPS</p>
             <h2>
-              Good music.
+              New here?
               <br />
-              <span>Great possibilities.</span>
+              <span>Follow the sound.</span>
             </h2>
           </div>
-          <div>
-            <p>
-              Fresh finds for your next big idea.
-              <br />A curated selection of fictional demo assets.
-            </p>
-            <Link href="/marketplace" className="editorial-link">
-              Dig into Marketplace <ArrowUpRight size={17} />
-            </Link>
-          </div>
+          <p>
+            Three ways in.
+            <br />A whole world to explore.
+          </p>
         </div>
-        <div className="home-asset-grid">
-          {musicAssets.slice(0, 4).map((a) => (
-            <AssetCard key={a.id} asset={a} onPlay={setPlaying} />
+        <div className="world-chapters">
+          {chapters.map(({ icon: Icon, ...chapter }) => (
+            <article key={chapter.number} className="world-chapter" data-reveal>
+              <span className="chapter-number">/{chapter.number}</span>
+              <div className="chapter-orbit">
+                <Icon size={36} strokeWidth={1} />
+                <div />
+                <div />
+              </div>
+              <h3>{chapter.title}</h3>
+              <p>{chapter.text}</p>
+              <Link href={chapter.href} className="world-text-link">
+                {chapter.action}
+                <ArrowUpRight size={16} />
+              </Link>
+            </article>
           ))}
         </div>
       </section>
-      <section className="home-culture editorial-shell">
-        <div className="culture-story">
-          <p className="eyebrow">CULTURE DOESN’T STAND STILL.</p>
-          <h2>
-            Neither
-            <br />
-            should you<span>.</span>
-          </h2>
-          <p>
-            From amapiano to the next underground wave. Find the people, songs
-            and sounds moving South Africa forward.
-          </p>
-          <Link className="btn primary" href="/index">
-            Explore the INDEX <MoveUpRight size={17} />
-          </Link>
-          <span className="culture-footnote">
-            Real artist references · illustrative momentum
-          </span>
-        </div>
-        <div className="home-movers">
-          <div className="movers-heading">
-            <span>ON OUR RADAR</span>
-            <span>DEMO SNAPSHOT ↗</span>
+      <section className="world-portal" id="your-world">
+        <div className="world-section-heading" data-reveal>
+          <div>
+            <p className="world-kicker">03 / FIND YOUR WAY IN</p>
+            <h2>
+              Different people.
+              <br />
+              <span>Shared frequency.</span>
+            </h2>
           </div>
-          {artists.slice(0, 4).map((a, i) => (
-            <Link href={`/index?q=${encodeURIComponent(a.name)}`} key={a.id}>
-              <span className="mover-rank">0{i + 1}</span>
-              <ArtistImage artist={a} />
-              <div>
-                <strong>{a.name}</strong>
-                <small>
-                  {a.track} · {a.genre}
-                </small>
-              </div>
-              <MiniChart />
-              <span className="mover-change">+{a.change}%</span>
+          <p>
+            No wrong entrance.
+            <br />
+            Choose what brings you here.
+          </p>
+        </div>
+        <div className="world-path-picker">
+          <div
+            role="group"
+            aria-label="Choose your starting point"
+            className="world-path-options"
+          >
+            {paths.map((p, i) => (
+              <button
+                key={p.id}
+                aria-pressed={path.id === p.id}
+                onClick={() => setPath(p)}
+              >
+                <span>0{i + 1}</span>
+                {p.title}
+                <ArrowUpRight size={20} />
+              </button>
+            ))}
+          </div>
+          <div className="world-path-result" key={path.id}>
+            <span className="path-result-symbol" aria-hidden="true">
+              ✳
+            </span>
+            <div className="path-destinations">
+              {path.destinations.map((d) => (
+                <span key={d}>{d}</span>
+              ))}
+            </div>
+            <h3>{path.label}</h3>
+            <p>{path.text}</p>
+            <Link
+              className="world-button acid"
+              href={path.href}
+              onClick={() => send({ type: "role", role: path.id as Role })}
+            >
+              {path.action}
               <ArrowUpRight size={17} />
             </Link>
-          ))}
-          <Link className="movers-all" href="/index">
-            See the full picture <ArrowRight size={17} />
-          </Link>
+            <small>
+              No signup needed for the demo. Role switching is not live
+              authentication.
+            </small>
+          </div>
         </div>
       </section>
-      <section className="home-now editorial-shell">
-        <div className="now-visual">
-          <img
-            src="/images/crowd.jpg"
-            alt="Crowd sharing a live music moment"
-            loading="lazy"
-          />
-          <span>
-            FEEL IT.
-            <br />
-            <em>FIND IT.</em>
-          </span>
-          <AudioLines size={60} />
+      <section className="world-culture">
+        <div className="culture-giant" aria-hidden="true">
+          <span>HOMEGROWN.</span>
+          <span>BOUNDLESS.</span>
         </div>
-        <div className="now-copy">
-          <p className="eyebrow">THIS MOMENT HAS A SOUNDTRACK.</p>
+        <div className="world-culture-copy">
+          <p className="world-kicker">04 / THE CULTURE IS THE SIGNAL</p>
           <h2>
-            What’s that
+            From here.
             <br />
-            <span>feeling?</span>
+            <em>To everywhere.</em>
           </h2>
           <p>
-            A sound stops you in your tracks. SONIC NOW helps you explore what
-            comes next. Try the listening demo and discover a new favourite.
+            South African sound is shaping the conversation.
+            <br />
+            Meet the artists. Explore their songs. Find your own connection.
           </p>
-          <Link href="/sonic-now" className="btn primary">
-            Open SONIC NOW <AudioLines size={18} />
+          <Link className="world-button outline" href="/index">
+            Meet the movement <ArrowUpRight size={17} />
           </Link>
+        </div>
+        <div className="world-artist-stack">
+          {artists.slice(0, 4).map((a, i) => (
+            <Link
+              key={a.id}
+              href={`/index?q=${encodeURIComponent(a.name)}`}
+              className="world-artist-row"
+            >
+              <span>0{i + 1}</span>
+              <ArtistImage artist={a} />
+              <div>
+                <h3>{a.name}</h3>
+                <p>
+                  {a.track} / {a.genre}
+                </p>
+              </div>
+              <ArrowUpRight size={20} />
+            </Link>
+          ))}
           <small>
-            Recognition provider not connected. Sample results are clearly
-            labelled.
+            Real artist and song references. Insights in INDEX are simulated.
           </small>
         </div>
       </section>
-      <section className="home-bottom editorial-shell">
-        <p className="eyebrow">ARTISTS. BRANDS. VENUES. ONE EXCHANGE.</p>
-        <h2>
-          Your next chapter
-          <br />
-          sounds <em>different.</em>
-        </h2>
-        <div className="button-row">
-          <Link className="btn primary" href="/artists">
-            For artists <ArrowUpRight size={17} />
-          </Link>
-          <Link className="btn white" href="/brands">
-            For brands <ArrowUpRight size={17} />
-          </Link>
-          <Link className="btn white" href="/venues">
-            For venues <ArrowUpRight size={17} />
+      <section className="world-crate">
+        <div className="world-section-heading" data-reveal>
+          <div>
+            <p className="world-kicker">05 / A TASTE OF WHAT’S INSIDE</p>
+            <h2>
+              A sound.
+              <br />
+              <span>A thousand possibilities.</span>
+            </h2>
+          </div>
+          <Link className="world-text-link" href="/marketplace">
+            Enter Marketplace
+            <ArrowUpRight size={18} />
           </Link>
         </div>
-        <p className="home-demo-note">
-          Interactive prototype · Marketplace listings, prices and transactions
-          are fictional. No real music rights are offered or transferred.
+        <div className="world-crate-grid">
+          {musicAssets.slice(0, 3).map((a) => (
+            <AssetCard asset={a} key={a.id} onPlay={setPlaying} />
+          ))}
+        </div>
+        <p className="world-demo-copy">
+          Fictional demo listings. Audio previews are original synthesized
+          samples, not recordings by the real artists featured above. No rights
+          are for sale or transferred.
+        </p>
+      </section>
+      <section className="world-questions">
+        <div>
+          <p className="world-kicker">A LITTLE CLARITY BEFORE YOU DIVE IN.</p>
+          <h2>
+            Good questions.
+            <br />
+            <span>Clear answers.</span>
+          </h2>
+        </div>
+        <div className="world-faq">
+          {[
+            {
+              q: "What can I do on SONIC EXCHANGE?",
+              a: "Discover South African artists in INDEX, try music identification in SONIC NOW, explore demo music licences in Marketplace, or use artist, brand and venue workspaces. DISTRIBUTION guides artists through a demo release, and FACTS SHOW brings editorial stories and audience participation together.",
+            },
+            {
+              q: "Where should I start?",
+              a: "Choose your starting point above. If you’re curious about music, begin with INDEX. If you create music, try ARTISTS. Brands can explore BRANDS, and venue teams can try VENUES. You can move freely between every destination.",
+            },
+            {
+              q: "Is this a live marketplace?",
+              a: "This is a fully interactive prototype. Listings, prices, offers, payments, escrow and rights transfers are demonstrations only. Purchases create local demo receipts; no money moves and no real music rights are transferred.",
+            },
+            {
+              q: "Are the artist insights and recognition results live?",
+              a: "Real South African artist and song references are paired with illustrative insights. Live social feeds, recognition, DSP delivery and verification services are not connected. Sample results and simulated actions are labelled throughout.",
+            },
+            {
+              q: "Do I need an account to explore?",
+              a: "No. Try the prototype without signing up. Your demo progress stays in this browser. The role selector opens sample workspaces and is not a real account or authentication system.",
+            },
+          ].map(({ q, a }) => (
+            <details key={q}>
+              <summary>
+                {q}
+                <span aria-hidden="true">+</span>
+              </summary>
+              <p>{a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+      <section className="world-finale">
+        <div className="finale-orbit" aria-hidden="true" />
+        <p className="world-kicker">THE NEXT CHAPTER IS YOURS.</p>
+        <h2>
+          Come for the sound.
+          <br />
+          <em>Stay for what’s next.</em>
+        </h2>
+        <a href="#your-world" className="world-button acid">
+          Find your starting point <ArrowUpRight size={18} />
+        </a>
+        <Link href="/sonic-now" className="world-text-link">
+          Or start with a sound <AudioLines size={18} />
+        </Link>
+        <p className="world-demo-copy">
+          An interactive vision for South African music. Explore the
+          possibilities; every live integration still to come is clearly
+          identified.
         </p>
       </section>
       <PreviewPlayer asset={playing} onClose={() => setPlaying(null)} />
-      {film && (
-        <Modal title="Welcome to the exchange" onClose={() => setFilm(false)}>
-          <div className="intro-film">
-            <AudioLines size={54} />
-            <h3>
-              A new frequency
-              <br />
-              for South African music.
-            </h3>
-            <p>
-              Discover artists in INDEX, explore demo music licences in
-              Marketplace, and connect through the artist, brand and venue
-              workspaces.
-            </p>
-          </div>
-          <p className="muted">
-            This is an interactive introduction. A brand film has not been added
-            yet.
-          </p>
-          <Link
-            className="btn primary"
-            href="/marketplace"
-            onClick={() => setFilm(false)}
-          >
-            Start exploring <ArrowUpRight size={16} />
-          </Link>
-        </Modal>
-      )}
     </div>
   );
 }

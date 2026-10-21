@@ -25,6 +25,7 @@ npm run test:e2e    # in a second terminal; requires Chromium
 
 Playwright uses `/usr/bin/chromium` in the managed workspace. For other machines, run `npx playwright install chromium`; the config falls back to the installed Playwright browser. Browser tests capture all seven pages at desktop, tablet and mobile widths into `docs/screenshots` and run axe accessibility scans.
 
+- [Sound World motion website and first-time guide](docs/SOUND_WORLD.md)
 - [Home and Marketplace redesign, scope and verification](docs/NEXT_CHAPTER_DESIGN.md)
 - [Architecture, routes and role matrix](docs/ARCHITECTURE.md)
 - [Integration readiness and media provenance](docs/INTEGRATIONS.md)
